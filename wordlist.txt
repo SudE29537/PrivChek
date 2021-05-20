@@ -2,3 +2,4 @@ nome
 endereço
 email
 CPF
+sexo
