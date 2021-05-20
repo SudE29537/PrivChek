@@ -7,6 +7,3 @@ nome
 email
 nome
 CPF
-nome
-cpf
-Nome
