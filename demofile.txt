@@ -1,0 +1,9 @@
+var = nome
+var = email
+endereço
+email
+CPF
+nome
+email
+nome
+CPF
