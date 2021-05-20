@@ -4,3 +4,5 @@ email
 CPF
 RG
 sexo
+cnh
+CNH
