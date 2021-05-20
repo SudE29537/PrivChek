@@ -1,4 +1,5 @@
 nome
 endereço
 email
-cpf
+CPF
+sexo
