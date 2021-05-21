@@ -2,12 +2,19 @@ var = nome
 var = email
 endereço
 email
+caneta
 CPF
 nome
 email
 nome
+cabelo
+
+
+macaco
+
 CPF
 cpf
 Nome
+
 Endereço
 
