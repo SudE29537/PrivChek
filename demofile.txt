@@ -4,18 +4,18 @@ endereço
 email
 caneta
 CPF
-nome
+name
+address
 email
 nome
+email
+ssn
+sex
+nome
 cabelo
-
-
+driver license
 macaco
-
 CPF
 cpf
 Nome
-
 Endereço
-
-áãâàéèêíìîòóôô

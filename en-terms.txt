@@ -1,0 +1,6 @@
+name
+address
+email
+ssn
+sex
+driver license
