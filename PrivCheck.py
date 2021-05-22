@@ -1,5 +1,18 @@
-w = "wordlist.txt"
+import configparser
+import argparse
+
+config = configparser.ConfigParser()
+config.read('config.ini')
+
+w = config['DEFAULT']['termfile']
 d = "demofile.txt"
+
+parser = argparse.ArgumentParser()
+parser.add_argument("-t", "--termlist", help="select termlist to use")
+args = parser.parse_args()
+
+if args.termlist:
+    w = args.termlist
 
 keys = [key for key in (line.strip().lower()
                         for line in open(w, encoding="utf-8")) if key]
