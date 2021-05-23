@@ -13,9 +13,11 @@ ssn
 sex
 nome
 cabelo
+sexo
 driver license
 macaco
 CPF
 cpf
 Nome
 Endereço
+rg
