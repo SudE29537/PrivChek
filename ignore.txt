@@ -1,3 +1,4 @@
 nome
 cpf
 rg
+sex

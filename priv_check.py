@@ -4,7 +4,7 @@ import argparse
 config = configparser.ConfigParser()
 config.read('config.ini')
 
-w = config['DEFAULT']['termfile']
+w = config['DEFAULT']['term_file']
 d = "demofile.txt"
 i = "ignore.txt"
 
