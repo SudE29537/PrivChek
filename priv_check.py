@@ -1,8 +1,4 @@
-import configparser
 import argparse
-
-config = configparser.ConfigParser()
-config.read('config.ini')
 
 d = "demofile.txt"
 i = "ignore.txt"
