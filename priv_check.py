@@ -1,6 +1,25 @@
 import argparse
 import os
 
+
+def parsefile(file):
+    keys = [key for key in (line.strip().lower()
+                            for line in open(file, encoding="utf-8")) if key]
+    return keys
+
+
+def checkfile(target, ignore, keyword):
+    ikeys = parsefile(ignore)
+    keys = parsefile(keyword)
+    with open(target, encoding="utf-8") as x:
+        print("File", target)
+        for lineno, line in enumerate(x):
+            for key in keys:
+                if key not in ikeys:
+                    if key in line.lower():
+                        print(key, lineno+1)
+
+
 parser = argparse.ArgumentParser()
 parser.add_argument("-t", "--target", help="select file or folder to scan. Required",
                     metavar=' ', required=True)
@@ -14,20 +33,6 @@ ignorelist = args.ignore
 keywordlist = args.keyword
 
 if os.path.isfile(target):
-
-    ikeys = [ikey for ikey in (line.strip().lower()
-                               for line in open(ignorelist, encoding="utf-8")) if ikey]
-
-    keys = [key for key in (line.strip().lower()
-                            for line in open(keywordlist, encoding="utf-8")) if key]
-
-    with open(target, encoding="utf-8") as x:
-        print("File", target)
-        for lineno, line in enumerate(x):
-            for key in keys:
-                if key not in ikeys:
-                    if key in line.lower():
-                        print(key, lineno+1)
-
+    checkfile(target, ignorelist, keywordlist)
 else:
     print("Not working with folder for now.")
