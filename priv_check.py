@@ -12,12 +12,22 @@ def checkfile(target, ignore, keyword):
     ikeys = parsefile(ignore)
     keys = parsefile(keyword)
     with open(target, encoding="utf-8") as x:
-        print("File", target)
         for lineno, line in enumerate(x):
             for key in keys:
                 if key not in ikeys:
                     if key in line.lower():
-                        print(key, lineno+1)
+                        print(
+                            f"PII found in file {os.path.abspath(target)}: {key}, line {lineno+1}")
+
+
+def ckeckdir(target):
+    content = os.listdir(target)
+    for i in range(0, len(content)):
+        if os.path.isfile(content[i]):
+            checkfile(content[i], ignorelist, keywordlist)
+        else:
+            print(
+                f"Not working with sub-folders for now. Can not check {content[i]}")
 
 
 parser = argparse.ArgumentParser()
@@ -32,7 +42,4 @@ target = args.target
 ignorelist = args.ignore
 keywordlist = args.keyword
 
-if os.path.isfile(target):
-    checkfile(target, ignorelist, keywordlist)
-else:
-    print("Not working with folder for now.")
+ckeckdir(target)
