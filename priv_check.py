@@ -12,12 +12,18 @@ def checkfile(t, i, k):
     ikeys = parsefile(i)
     keys = parsefile(k)
     with open(t, encoding="utf-8") as x:
+        s = 0
         for lineno, line in enumerate(x):
             for key in keys:
                 if key not in ikeys:
                     if key in line.lower():
-                        print(
-                            f"PII found in file {os.path.abspath(t)}: {key}, line {lineno+1}")
+                        if s == 0:
+                            print(f"PII found in file {os.path.abspath(t)}")
+                            print(f"{key}, line {lineno+1}")
+                            s = 1
+                        else:
+                            print(f"{key}, line {lineno+1}")
+                            s = 1
 
 
 def ckeckdir(t, i, k):
