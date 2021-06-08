@@ -11,16 +11,16 @@ def parsefile(f):
 def checkfile(t, i, k):
     ikeys = parsefile(i)
     keys = parsefile(k)
+    s = True
     with open(t, encoding="utf-8") as x:
-        s = 0
         for lineno, line in enumerate(x):
             for key in keys:
                 if key not in ikeys:
                     if key in line.lower():
-                        if s == 0:
+                        if s:
                             print(f"PII found in file {os.path.abspath(t)}")
                             print(f"{key}, line {lineno+1}")
-                            s = 1
+                            s = False
                         else:
                             print(f"{key}, line {lineno+1}")
 
