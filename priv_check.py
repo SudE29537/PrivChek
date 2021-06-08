@@ -2,37 +2,39 @@ import argparse
 import os
 
 
-def parsefile(f):
+def parsefile(targetFile):
     keys = [key for key in (line.strip().lower()
-                            for line in open(f, encoding="utf-8")) if key]
+                            for line in open(targetFile, encoding="utf-8")) if key]
     return keys
 
 
-def checkfile(t, i, k):
-    ikeys = parsefile(i)
-    keys = parsefile(k)
+def checkfile(targetFile, ignoreKeywordList, keywordList):
+    ikeys = parsefile(ignoreKeywordList)
+    keys = parsefile(keywordList)
     s = True
-    with open(t, encoding="utf-8") as x:
+    with open(targetFile, encoding="utf-8") as x:
         for lineno, line in enumerate(x):
             for key in keys:
                 if key not in ikeys:
                     if key in line.lower():
                         if s:
-                            print(f"PII found in file {os.path.abspath(t)}")
+                            print(
+                                f"PII found in file {os.path.abspath(targetFile)}")
                             print(f"{key}, line {lineno+1}")
                             s = False
                         else:
                             print(f"{key}, line {lineno+1}")
 
 
-def ckeckdir(t, i, k):
-    content = os.listdir(t)
-    for x in range(0, len(content)):
-        if os.path.isfile(content[x]):
-            checkfile(content[x], i, k)
-        else:
-            print(
-                f"Not working with sub-folders for now. Can not check {content[x]}")
+def checkTarget(target, ignoreKeywordList, keywordList):
+    with os.scandir(target) as dir:
+        for entry in dir:
+            if entry.name not in ignoreTarget:
+                if os.path.isdir(entry):
+                    checkTarget(os.path.abspath(entry),
+                                ignoreKeywordList, keywordList)
+                elif os.path.isfile(entry):
+                    checkfile(entry, ignoreKeywordList, keywordList)
 
 
 parser = argparse.ArgumentParser()
@@ -46,5 +48,6 @@ args = parser.parse_args()
 target = args.target
 ignorelist = args.ignore
 keywordlist = args.keyword
+ignoreTarget = parsefile("ignore-target.txt")
 
-ckeckdir(target, ignorelist, keywordlist)
+checkTarget(target, ignorelist, keywordlist)
