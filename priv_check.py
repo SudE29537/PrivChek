@@ -23,7 +23,6 @@ def checkfile(t, i, k):
                             s = 1
                         else:
                             print(f"{key}, line {lineno+1}")
-                            s = 1
 
 
 def ckeckdir(t, i, k):
