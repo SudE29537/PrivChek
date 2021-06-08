@@ -1,0 +1,23 @@
+var = nome
+var = email
+endereço
+email
+caneta
+CPF
+name
+address
+email
+nome
+email
+ssn
+sex
+nome
+cabelo
+sexo
+driver license
+macaco
+CPF
+cpf
+Nome
+Endereço
+rg
