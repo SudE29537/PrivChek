@@ -5,7 +5,7 @@ Apartamento
 Asiático
 Assexual
 Banco
-Biomêtria
+Biometria
 Bissexual
 Branco
 C/C
@@ -35,7 +35,7 @@ Email
 E-mail
 Endereço
 Estado
-Étnia
+Etnia
 Feminino
 Filiado
 Fisiologia
