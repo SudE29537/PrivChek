@@ -20,10 +20,8 @@ def checkfile(targetFile, ignoreKeywordList, keywordList):
                         if s:
                             print(
                                 f"PII found in file {os.path.abspath(targetFile)}")
-                            print(f"{key}, line {lineno+1}")
                             s = False
-                        else:
-                            print(f"{key}, line {lineno+1}")
+                        print(f"{key}, line {lineno+1}")
 
 
 def checkTarget(target, ignoreKeywordList, keywordList):
@@ -37,17 +35,23 @@ def checkTarget(target, ignoreKeywordList, keywordList):
                     checkfile(entry, ignoreKeywordList, keywordList)
 
 
+# def setParam():
+#     if .privchek:
+        
+
+
+
 parser = argparse.ArgumentParser()
 parser.add_argument("-t", "--target", help="select file or folder to scan. Required",
                     metavar=' ', required=True)
 parser.add_argument("-i", "--ignore", help="select ignore file. Default = en-ignore.txt",
-                    metavar=' ', default="en-ignore.txt")
+                    metavar=' ', default=".privcheck/ignore-keywords.txt")
 parser.add_argument("-k", "--keyword",
-                    help="select keyword list. Default = en-keywords.txt", metavar=' ', default="en-keywords.txt")
+                    help="select keyword list. Default = en-keywords.txt", metavar=' ', default=".privcheck/keywords.txt")
 args = parser.parse_args()
 target = args.target
 ignorelist = args.ignore
 keywordlist = args.keyword
-ignoreTarget = parsefile("ignore-target.txt")
+ignoreTarget = parsefile(".privcheck/ignore-targets.txt")
 
 checkTarget(target, ignorelist, keywordlist)

@@ -1,7 +1,0 @@
-.git
-demofile.txt
-pt-keywords.txt
-en-keywords.txt
-pt-ignore.txt
-en-ignore.txt
-priv_check.py
