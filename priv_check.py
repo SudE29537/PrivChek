@@ -41,13 +41,13 @@ parser = argparse.ArgumentParser()
 parser.add_argument("-t", "--target", help="select file or folder to scan. Required",
                     metavar=' ', required=True)
 parser.add_argument("-i", "--ignore", help="select ignore file. Default = en-ignore.txt",
-                    metavar=' ', default="en-ignore.txt")
+                    metavar=' ', default="Default/en-ignore.txt")
 parser.add_argument("-k", "--keyword",
-                    help="select keyword list. Default = en-keywords.txt", metavar=' ', default="en-keywords.txt")
+                    help="select keyword list. Default = en-keywords.txt", metavar=' ', default="Default/en-keywords.txt")
 args = parser.parse_args()
 target = args.target
 ignorelist = args.ignore
 keywordlist = args.keyword
-ignoreTarget = parsefile("ignore-target.txt")
+ignoreTarget = parsefile("Default/ignore-target.txt")
 
 checkTarget(target, ignorelist, keywordlist)
