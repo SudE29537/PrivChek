@@ -1,5 +1,0 @@
-.txt
-.py
-.cfg
-.js
-.json
