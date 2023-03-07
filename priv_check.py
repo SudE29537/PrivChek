@@ -5,9 +5,9 @@ def parsefile(targetfile):
     keys = [key for key in (line.strip().lower() for line in open(targetfile, encoding="utf-8")) if key]
     return keys
 
-def checkfile(targetfile, ignorekeywordlist, keywordlist):
-    ikeys = parsefile(ignorekeywordlist)
-    keys = parsefile(keywordlist)
+def checkfile(targetfile):
+    ikeys = parsefile(ignorekeywords)
+    keys = parsefile(keywords)
     s = True
     with open(targetfile, encoding="utf-8") as x:
         for lineno, line in enumerate(x):
@@ -22,32 +22,40 @@ def checkfile(targetfile, ignorekeywordlist, keywordlist):
                         else:
                             print(f"{key}, line {lineno+1}")
 
-def checkTarget(target, ignorekeywordlist, keywordlist, ignoretarget):
+def checkTarget(target, ignoretarget, extensions, ignoreextensions):
     itarget = parsefile(ignoretarget)
+    ext = parsefile(extensions)
+    iextensions = parsefile(ignoreextensions)
     with os.scandir(target) as dir:
         for entry in dir:
             if os.path.isdir(entry):
                 checkTarget(os.path.abspath(entry),
-                                ignorekeywordlist, keywordlist, ignoretarget)
+                                 ignoretarget, extensions, ignoreextensions)
             elif os.path.isfile(entry):
                 dirname = os.path.dirname(entry)
-                if (os.path.basename(dirname.lower()) not in itarget) and (entry.name not in itarget):
-                    checkfile(entry, ignorekeywordlist, keywordlist)
+                if (os.path.basename(dirname.lower()) not in itarget) and (entry.name not in itarget) and (os.path.splitext(entry)[1] not in iextensions) and (os.path.splitext(entry)[1] in ext):
+                    checkfile(entry)
 
 parser = argparse.ArgumentParser()
-parser.add_argument("-t ", "--target", help="Select folder to scan. Required",
+parser.add_argument("-t ", "--target", help="Select target folder to scan. Required",
                     metavar=' ', required=True)
-parser.add_argument("-it", "--ignore_target", help="Set ignore target file. Default = ignore_target.txt",
-                    metavar=' ', default="Config/ignore_target.txt")
-parser.add_argument("-k ", "--keyword",
+parser.add_argument("-it", "--ignore_targets", help="Set ignore targets file. Default = ignore_targets.txt",
+                    metavar=' ', default="Config/ignore_targets.txt")
+parser.add_argument("-k ", "--keywords",
                     help="Set keyword list file. Default = keywords.txt", metavar=' ', default="Config/keywords.txt")
-parser.add_argument("-ik", "--ignore_keyword", help="Set ignore keyword list file. Default = ignore_keyword.txt",
-                    metavar=' ', default="Config/ignore_keyword.txt")
+parser.add_argument("-ik", "--ignore_keywords", help="Set ignore keywords list file. Default = ignore_keywords.txt",
+                    metavar=' ', default="Config/ignore_keywords.txt")
+parser.add_argument("-e ", "--extensions",
+                    help="Set file extensions list file. Default = extensions.txt", metavar=' ', default="Config/extensions.txt")
+parser.add_argument("-ie", "--ignore_extensions", help="Set ignore extensions list file. Default = ignore_extensions.txt",
+                    metavar=' ', default="Config/ignore_extensions.txt")
 
 args = parser.parse_args()
 target = args.target
-ignoretarget = args.ignore_target
-keyword = args.keyword
-ignorekeyword = args.ignore_keyword
+ignoretargets = args.ignore_targets
+keywords = args.keywords
+ignorekeywords = args.ignore_keywords
+extensions = args.extensions
+ignoreextensions = args.ignore_extensions
 
-checkTarget(target, ignorekeyword, keyword, ignoretarget)
+checkTarget(target, ignoretargets, extensions, ignoreextensions)
